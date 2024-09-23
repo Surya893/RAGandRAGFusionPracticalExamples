@@ -1,0 +1,37 @@
+# The Math Behind RAG Fusion
+
+We've discussed three main concepts before:
+
+Retrieval Augmented Generation (RAG)
+Multi-Query Generation
+Reciprocal Rank Fusion (RRF)
+Let's take a look at the math behind RRF:
+The mathematical basis of RRF is based on computing. For each document, a score is based on its rank across several queries. For the RRF; score of a document is retrieved from multiple ranked lists, and the formula is described as follows:
+
+RRF(d) = Σ(r ∈ R) 1 / (k + r(d))
+
+Where:
+- d is a document
+- R is the set of rankers (retrievers)
+- k is a constant (typically 60)
+- r(d) is the rank of document d in ranker r
+
+One information retrieval technique is Reciprocal Rank Fusion, which combines several input lists into ranked ones as we’ve discussed. Here, we assign a score to a document by extracting its rank in each input list. This helps finalize the refinements that will improve the overall performance of retrievals by benefiting from various ranking systems.
+
+:RRF Formula:
+The score for a document dd in the i-th input list is calculated using the following formula:
+
+RRFi​(d)=ranki​(d)1​+k
+
+Where:
+
+ranki(d)ranki​(d): The rank of document dd in the i-th input list.
+kk: A constant that controls the influence of lower ranks. It is often set to 60, but this can be adjusted based on the specific application or dataset.
+Scoring Explanation
+Higher Scores for Lower Ranks: The reciprocal rank gives higher scores to documents that are ranked higher (i.e., lower rank numbers).
+For example:
+A document ranked 1st would receive a score of 1+k1+k (which is 1+60=611+60=61 if k=60k=60).
+
+A document ranked 10th would receive a score of 0.1+k0.1+k (which is 0.1+60=60.10.1+60=60.1).
+
+This scoring mechanism makes sure that documents appearing earlier in the ranked lists are favored while still allowing for some contributions from later documents due to the constant kk.
