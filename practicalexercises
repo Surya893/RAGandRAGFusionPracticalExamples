@@ -1,2 +1,55 @@
 #Practical Exercises on RAG Fusion & Multi Query Generation.
 
+Practical Exercises
+Watching people work out in the gym won’t make you fit; you must work out yourself. Here’s a rough idea of how to do that:
+
+#1. Understand RAG & RAG Fusion
+You already do; you made it through this paper. Read it again if you don’t feel like you do.
+
+#2. Implement RAG Fusion with LangChain
+Follow a guided tutorial to hone this in. I love this step-by-step code walkthrough video; it’s exhaustive and includes what you need to know.
+
+https://youtu.be/GchC5WxeXGc
+
+Create a simple application that accepts user queries, generates multiple variations, retrieves relevant documents, and ranks them using reciprocal rank fusion.
+
+#3. Experiment with Multi-Query Generation
+We’ve discussed this, so let’s practice!
+
+Exercise: Generate multiple queries from a single user input.
+
+Task: Use an AI model to create variations of user queries.
+Ex: If the input is “What are the effects of climate change?” generate related questions like “How does climate change impact agriculture?” or “What are the health risks associated with climate change?”.
+
+Implementation: Write a script that takes a user query and outputs several variations, then tests these against your retrieval system.
+
+#4. Reciprocal Rank Fusion Example
+Exercise: Apply reciprocal rank fusion to combine results from multiple queries.
+
+Task: Implement a function that takes results from different queries and ranks them based on their original positions in the result sets.
+Here’s an example code snippet to get you started:
+
+def reciprocal_rank_fusion(result_sets):
+    # Assuming result_sets is a list of lists containing ranked results
+    rank_dict = {}
+    for idx, results in enumerate(result_sets):
+        for rank, item in enumerate(results):
+            if item not in rank_dict:
+                rank_dict[item] = 0
+            rank_dict[item] += (1 / (rank + 1))  # Reciprocal ranking
+    # Sort results by their combined score
+    return sorted(rank_dict.items(), key=lambda x: x[1], reverse=True)
+
+#5. Testing & Evaluation
+Exercise: Evaluate the effectiveness of your RAG Fusion implementation.
+
+Methodology:
+
+Use a set of predefined queries and compare the performance of your RAG Fusion model against a standard RAG model.
+Measure metrics such as accuracy, relevance of retrieved documents, and user satisfaction through feedback.
+
+#6. Explore Advanced RAG
+Exercise: Dive into advanced topics such as self-reflective or agentic RAG.
+
+Task: Explore additional techniques such as Self-Reflection-RAG or Agentic-RAG to further enhance your model’s capabilities.
+Implementation: Create notebooks that document your experiments with these advanced techniques.
